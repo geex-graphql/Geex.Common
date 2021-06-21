@@ -1,10 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <Version>1.0.4</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,17 +19,18 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.1.0" />
-    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.1.0" />
+    <PackageReference Include="Geex.MongoDB.Entities" Version="20.7.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.3.0" />
     <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.5.5" />
     <PackageReference Include="HotChocolate.AspNetCore.Voyager" Version="10.5.5" />
-    <PackageReference Include="HotChocolate.Data" Version="11.1.0" />
+    <PackageReference Include="HotChocolate.Data" Version="11.3.0" />
     <PackageReference Include="HotChocolate.Stitching" Version="11.1.0" />
-    <PackageReference Include="HotChocolate.Types.Filters" Version="11.1.0" />
-    <PackageReference Include="HotChocolate.Types.OffsetPagination" Version="11.1.0" />
-    <PackageReference Include="HotChocolate.Types.Scalars" Version="11.1.0" />
-    <PackageReference Include="HotChocolate.Types.Scalars.Upload" Version="11.1.0" />
-    <PackageReference Include="HotChocolate.Types.Sorting" Version="11.1.0" />
+    <PackageReference Include="HotChocolate.Types.Filters" Version="11.3.0" />
+    <PackageReference Include="HotChocolate.Types.OffsetPagination" Version="11.3.0" />
+    <PackageReference Include="HotChocolate.Types.Scalars" Version="11.3.0" />
+    <PackageReference Include="HotChocolate.Types.Scalars.Upload" Version="11.3.0" />
+    <PackageReference Include="HotChocolate.Types.Sorting" Version="11.3.0" />
     <PackageReference Include="Humanizer.Core" Version="2.8.26" />
     <PackageReference Include="ImpromptuInterface" Version="7.0.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />
@@ -42,6 +45,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Geex.Common.Abstraction\Geex.Common.Abstraction.csproj" />
+    <ProjectReference Include="..\Geex.Common.Redis\Geex.Common.Redis.csproj" />
+    <ProjectReference Include="..\Geex.Common.Settings\Geex.Common.Settings.csproj" />
     <ProjectReference Include="..\geexbox.logging.elasticsearch\Geexbox.Logging.ElasticSearch.csproj" />
     <ProjectReference Include="..\MongoDB.Entities\MongoDB.Entities\MongoDB.Entities.csproj" />
   </ItemGroup>
