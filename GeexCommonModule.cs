@@ -107,7 +107,6 @@ namespace Geex.Common
 
             //schemaBuilder.ConfigureSchemaServices(x=>x.AddApplication<T>());
             context.Services.AddSingleton(schemaBuilder);
-            context.Services.AddMediatR(typeof(GeexCommonModule));
             context.Services.AddHttpContextAccessor();
             context.Services.AddObjectAccessor<IApplicationBuilder>();
 
