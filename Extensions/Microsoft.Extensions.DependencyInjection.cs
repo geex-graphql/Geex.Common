@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var commonModuleOptions = builder.ExecutePreConfiguredActions(new GeexCommonModuleOptions());
             var mongoUrl = new MongoUrl(commonModuleOptions.ConnectionString) { };
             var mongoSettings = MongoClientSettings.FromUrl(mongoUrl);
-            mongoSettings.ApplicationName = configuration.GetAppName();
+            mongoSettings.ApplicationName = commonModuleOptions.AppName;
             DB.InitAsync(mongoUrl.DatabaseName, mongoSettings).Wait();
             builder.AddScoped<DbContext>(x => new DbContext(transactional: true));
             return builder;

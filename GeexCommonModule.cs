@@ -42,17 +42,14 @@ namespace Geex.Common
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)
         {
+            context.Services.AddTransient(typeof(Lazy<>), typeof(LazyInject<>));
+            context.Services.AddTransient<ClaimsPrincipal>(x => x.GetService<IHttpContextAccessor>()?.HttpContext?.User);
             base.PreConfigureServices(context);
-            context.Services.PreConfigure<GeexCommonModuleOptions>(options =>
-            {
-                Configuration.GetSection(nameof(GeexCommonModuleOptions)).Bind(new GeexCommonModuleOptions());
-            });
         }
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             var env = context.Services.GetSingletonInstance<IWebHostEnvironment>();
-            context.Services.AddTransient<ClaimsPrincipal>(x => x.GetService<IHttpContextAccessor>()?.HttpContext?.User);
             context.Services.AddStorage();
             var schemaBuilder = context.Services.AddGraphQLServer();
             schemaBuilder.AddConvention<ITypeInspector>(typeof(ClassEnumTypeConvention))

@@ -11,5 +11,6 @@ namespace Geex.Common
     public class GeexCommonModuleOptions : GeexModuleOption<GeexCommonModule>
     {
         public string ConnectionString { get; set; } = "mongodb://localhost:27017/geex";
+        public string AppName { get; set; } = "geex";
     }
 }
