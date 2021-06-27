@@ -4,14 +4,17 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-
+using Geex.Common.Abstraction;
 using Geex.Common.Abstractions;
 using Geex.Common.Gql;
 using Geex.Common.Gql.Interceptors;
 using Geex.Common.Gql.Roots;
 using Geex.Common.Gql.Types;
+using Geex.Common.Logging;
 using Geex.Common.Settings;
+
 using HotChocolate;
+using HotChocolate.Execution.Configuration;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
 using HotChocolate.Types.Pagination;
@@ -37,109 +40,37 @@ using Volo.Abp.Modularity;
 
 namespace Geex.Common
 {
-    [DependsOn(typeof(SettingsModule))]
+    [DependsOn(
+        typeof(GeexCoreModule),
+        typeof(LoggingModule),
+        typeof(SettingsModule))]
     public class GeexCommonModule : GeexModule<GeexCommonModule>
     {
-        public override void PreConfigureServices(ServiceConfigurationContext context)
-        {
-            context.Services.AddTransient(typeof(Lazy<>), typeof(LazyInject<>));
-            context.Services.AddTransient<ClaimsPrincipal>(x => x.GetService<IHttpContextAccessor>()?.HttpContext?.User);
-            base.PreConfigureServices(context);
-        }
-
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            var env = context.Services.GetSingletonInstance<IWebHostEnvironment>();
-            context.Services.AddStorage();
-            var schemaBuilder = context.Services.AddGraphQLServer();
-            schemaBuilder.AddConvention<ITypeInspector>(typeof(ClassEnumTypeConvention))
-                .AddTypeConverter((Type source, Type target, out ChangeType? converter) =>
+            var schemaBuilder = context.Services.GetSingletonInstance<IRequestExecutorBuilder>();
+            schemaBuilder
+                .SetPagingOptions(new PagingOptions()
                 {
-                    converter = o => o;
-                    return source.GetBaseClasses(false).Intersect(target.GetBaseClasses(false)).Any();
+                    DefaultPageSize = 10,
+                    IncludeTotalCount = true,
+                    MaxPageSize = 1000
                 })
-                .AddFiltering()
-            .AddSorting()
-            .AddProjections()
-            .SetPagingOptions(new PagingOptions()
-            {
-                DefaultPageSize = 10,
-                IncludeTotalCount = true,
-                MaxPageSize = 1000
-            })
-            //.AddHttpRequestInterceptor(((context, executor, builder, token) =>
-            //{
-            //    context.Response.OnCompleted(() => context.RequestServices.GetService<DbContext>().CommitAsync(token));
-            //    return default;
-            //}))
-            .AddHttpRequestInterceptor<UnitOfWorkInterceptor>()
-            //.ConfigureOnRequestExecutorCreatedAsync(((provider, executor, cancellationToken) =>
-            //{
-            //    return new ValueTask(provider.GetService<DbContext>().CommitAsync(cancellationToken));
-            //}))
-            .AddQueryType<Query>()
-            .AddMutationType<Mutation>()
-            .AddSubscriptionType<Subscription>()
-            .BindRuntimeType<ObjectId, ObjectIdType>()
-            .AddErrorFilter<UserFriendlyErrorFilter>(_ => new UserFriendlyErrorFilter(context.Services.GetServiceProviderOrNull().GetService<ILoggerProvider>()))
-            //.AddErrorFilter(x =>
-            //{
-            //    if (x.Exception is UserFriendlyException)
-            //    {
-            //        x.RemoveException();
-            //    }
-            //    else
-            //    {
+                .AddErrorFilter<UserFriendlyErrorFilter>(_ =>
+                    new UserFriendlyErrorFilter(context.Services.GetServiceProviderOrNull()
+                        .GetService<ILoggerProvider>()))
+                .AddAuthorization();
 
-            //    }
-            //    return x;
-            //})
-            .OnSchemaError((ctx, err) =>
-            {
-                throw new Exception("schema error", err);
-            })
-            //.UseExceptions()
-            .AddAuthorization()
-                .AddGeexApolloTracing();
-
-            //schemaBuilder.ConfigureSchemaServices(x=>x.AddApplication<T>());
-            context.Services.AddSingleton(schemaBuilder);
-            context.Services.AddHttpContextAccessor();
-            context.Services.AddObjectAccessor<IApplicationBuilder>();
-
-            context.Services.AddHealthChecks();
+            var env = context.Services.GetSingletonInstance<IWebHostEnvironment>();
             context.Services.AddCors(options =>
             {
                 if (env.IsDevelopment())
                 {
-                    options.AddDefaultPolicy(x => x.SetIsOriginAllowed(x => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+                    options.AddDefaultPolicy(x =>
+                        x.SetIsOriginAllowed(x => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
                 }
             });
             base.ConfigureServices(context);
-        }
-
-        public override void OnApplicationInitialization(ApplicationInitializationContext context)
-        {
-            var app = context.GetApplicationBuilder();
-            var _env = context.GetEnvironment();
-            var _configuration = context.GetConfiguration();
-
-            app.UseCors();
-            if (_env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            app.UseCookiePolicy(new CookiePolicyOptions
-            {
-                MinimumSameSitePolicy = SameSiteMode.Strict,
-            });
-
-
-            app.UseHealthChecks("/health-check");
-
-            base.OnApplicationInitialization(context);
-            app.UseGeexGraphQL();
-
         }
     }
 }
