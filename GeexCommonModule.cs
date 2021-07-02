@@ -11,6 +11,8 @@ using Geex.Common.Gql.Interceptors;
 using Geex.Common.Gql.Roots;
 using Geex.Common.Gql.Types;
 using Geex.Common.Logging;
+using Geex.Common.Messaging.Api;
+using Geex.Common.Messaging.Core;
 using Geex.Common.Settings;
 
 using HotChocolate;
@@ -43,6 +45,8 @@ namespace Geex.Common
     [DependsOn(
         typeof(GeexCoreModule),
         typeof(LoggingModule),
+        typeof(MessagingApiModule),
+        typeof(MessagingCoreModule),
         typeof(SettingsModule))]
     public class GeexCommonModule : GeexModule<GeexCommonModule>
     {
