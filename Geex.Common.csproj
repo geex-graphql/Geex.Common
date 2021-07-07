@@ -19,17 +19,16 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.0" />
-    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.3.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.1" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.3.1" />
     <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.5.5" />
     <PackageReference Include="HotChocolate.AspNetCore.Voyager" Version="10.5.5" />
-    <PackageReference Include="HotChocolate.Data" Version="11.3.0" />
-    <PackageReference Include="HotChocolate.Stitching" Version="11.1.0" />
-    <PackageReference Include="HotChocolate.Types.Filters" Version="11.3.0" />
-    <PackageReference Include="HotChocolate.Types.OffsetPagination" Version="11.3.0" />
-    <PackageReference Include="HotChocolate.Types.Scalars" Version="11.3.0" />
-    <PackageReference Include="HotChocolate.Types.Scalars.Upload" Version="11.3.0" />
-    <PackageReference Include="HotChocolate.Types.Sorting" Version="11.3.0" />
+    <PackageReference Include="HotChocolate.Data" Version="11.3.1" />
+    <PackageReference Include="HotChocolate.Stitching" Version="11.3.1" />
+    <PackageReference Include="HotChocolate.Types.Filters" Version="11.3.1" />
+    <PackageReference Include="HotChocolate.Types.Scalars" Version="11.3.1" />
+    <PackageReference Include="HotChocolate.Types.Scalars.Upload" Version="11.3.1" />
+    <PackageReference Include="HotChocolate.Types.Sorting" Version="11.3.1" />
     <PackageReference Include="Humanizer.Core" Version="2.8.26" />
     <PackageReference Include="ImpromptuInterface" Version="7.0.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />
