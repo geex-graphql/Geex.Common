@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Geex.Common.Abstraction;
 using Geex.Common.Abstractions;
 using Geex.Common.Gql;
-using Geex.Common.Gql.Interceptors;
 using Geex.Common.Gql.Roots;
 using Geex.Common.Gql.Types;
 using Geex.Common.Logging;
