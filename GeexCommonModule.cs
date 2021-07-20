@@ -44,7 +44,6 @@ namespace Geex.Common
     [DependsOn(
         typeof(GeexCoreModule),
         typeof(LoggingModule),
-        typeof(MessagingApiModule),
         typeof(MessagingCoreModule),
         typeof(SettingsModule))]
     public class GeexCommonModule : GeexModule<GeexCommonModule>
