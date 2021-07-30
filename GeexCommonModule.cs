@@ -63,15 +63,6 @@ namespace Geex.Common
                         .GetService<ILoggerProvider>()))
                 .AddAuthorization();
 
-            var env = context.Services.GetSingletonInstance<IWebHostEnvironment>();
-            context.Services.AddCors(options =>
-            {
-                if (env.IsDevelopment())
-                {
-                    options.AddDefaultPolicy(x =>
-                        x.SetIsOriginAllowed(x => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
-                }
-            });
             base.ConfigureServices(context);
         }
     }
