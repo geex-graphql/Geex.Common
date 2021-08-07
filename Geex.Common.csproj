@@ -6,7 +6,7 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <Version>1.0.9</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -44,7 +44,6 @@
     <ProjectReference Include="..\Geex.Common.Logging\Geex.Common.Logging.csproj" />
     <ProjectReference Include="..\Geex.Common.Messaging\Geex.Common.Messaging.csproj" />
     <ProjectReference Include="..\Geex.Common.Settings\Geex.Common.Settings.csproj" />
-    <ProjectReference Include="..\geexbox.logging.elasticsearch\Geexbox.Logging.ElasticSearch.csproj" />
     <ProjectReference Include="..\MongoDB.Entities\MongoDB.Entities\MongoDB.Entities.csproj" />
   </ItemGroup>
 
