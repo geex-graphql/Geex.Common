@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Geex.Common.Abstraction;
 using Geex.Common.Abstractions;
+using Geex.Common.BackgroundJob;
 using Geex.Common.BlobStorage.Core;
 using Geex.Common.Gql;
 using Geex.Common.Gql.Roots;
@@ -47,6 +48,7 @@ namespace Geex.Common
         typeof(LoggingModule),
         typeof(MessagingCoreModule),
         typeof(BlobStorageCoreModule),
+        typeof(BackgroundJobModule),
         typeof(SettingsModule))]
     public class GeexCommonModule : GeexModule<GeexCommonModule>
     {

@@ -41,6 +41,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Geex.Common.Abstraction\Geex.Common.Abstraction.csproj" />
+    <ProjectReference Include="..\Geex.Common.BackgroundJob\Geex.Common.BackgroundJob.csproj" />
     <ProjectReference Include="..\Geex.Common.BlobStorage\Geex.Common.BlobStorage.csproj" />
     <ProjectReference Include="..\Geex.Common.Logging\Geex.Common.Logging.csproj" />
     <ProjectReference Include="..\Geex.Common.Messaging\Geex.Common.Messaging.csproj" />
