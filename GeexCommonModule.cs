@@ -54,19 +54,6 @@ namespace Geex.Common
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            var schemaBuilder = context.Services.GetSingletonInstance<IRequestExecutorBuilder>();
-            schemaBuilder
-                .SetPagingOptions(new PagingOptions()
-                {
-                    DefaultPageSize = 10,
-                    IncludeTotalCount = true,
-                    MaxPageSize = 1000
-                })
-                .AddErrorFilter<UserFriendlyErrorFilter>(_ =>
-                    new UserFriendlyErrorFilter(context.Services.GetServiceProviderOrNull()
-                        .GetService<ILoggerProvider>()))
-                .AddAuthorization();
-
             base.ConfigureServices(context);
         }
     }
