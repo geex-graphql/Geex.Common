@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Geex.Common.Abstraction;
 using Geex.Common.Abstractions;
+using Geex.Common.Accounting;
 using Geex.Common.BackgroundJob;
 using Geex.Common.BlobStorage.Core;
 using Geex.Common.Gql;
@@ -45,6 +46,7 @@ namespace Geex.Common
 {
     [DependsOn(
         typeof(GeexCoreModule),
+        typeof(AccountingModule),
         typeof(LoggingModule),
         typeof(MessagingCoreModule),
         typeof(BlobStorageCoreModule),
